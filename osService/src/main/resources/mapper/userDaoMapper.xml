@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="dao.UserDao">
+
+    <!-- 将查询到的复杂数据映射到一个结果集当中,常用于多表查询，自动映射开启时会自动映射 -->
+    <resultMap id="UserResultMap" type="User" >
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="realname" property="realname" jdbcType="VARCHAR" javaType="String"/>
+        <result column="username" property="username" jdbcType="VARCHAR" javaType="String"/>
+        <result column="password" property="password" jdbcType="VARCHAR" javaType="String"/>
+        <result column="gender" property="gender" jdbcType="TINYINT" javaType="short"/>
+        <result column="telephone" property="telephone" jdbcType="VARCHAR" javaType="String"/>
+        <result column="birthday" property="birthday" jdbcType="DATE" javaType="java.sql.Date"/>
+        <result column="sign" property="sign" jdbcType="VARCHAR" javaType="String"/>
+        <result column="qq" property="qq" jdbcType="VARCHAR" javaType="String"/>
+        <result column="weight" property="weight" jdbcType="INTEGER" javaType="int"/>
+        <result column="province" property="province" jdbcType="VARCHAR" javaType="String"/>
+        <result column="city" property="city" jdbcType="VARCHAR" javaType="String"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+        <result column="create_user" property="createUser" jdbcType="VARCHAR" javaType="String"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
+        <result column="update_user" property="updateUser" jdbcType="VARCHAR" javaType="String"/>
+        <result column="del" property="del" jdbcType="TINYINT" />
+    </resultMap>
+
+    <sql id="UserColumns">
+        id,
+        realname,
+        username,
+        password,
+        gender,
+        telephone,
+        birthday,
+        sign,
+        qq,
+        weight,
+        province,
+        city,
+        create_time,
+        create_user,
+        update_time,
+        update_user,
+        del
+    </sql>
+
+    <select id="getByUsername" parameterType="java.lang.String"  resultMap="UserResultMap">
+        SELECT
+        <include refid="UserColumns" />
+        FROM
+        t_user
+        WHERE username = #{username}
+        AND DEL = 0
+    </select>
+
+    <!-- flushCache默认为false，表示任何时候语句被调用，都不会去清空本地缓存和二级缓存。
+         useCache默认为true，表示会将本条语句的结果进行二级缓存。 -->
+    <insert id="createSelectivity" parameterType="user" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+        INSERT INTO
+        t_user
+        <trim prefix="(" suffix=")"  suffixOverrides="," >
+            realname,
+            username,
+            password,
+            gender,
+            telephone,
+            birthday,
+            sign,
+            qq,
+            province,
+            city,
+            create_time,
+            create_user,
+            update_time,
+            update_user,
+            del,
+        </trim>
+        VALUES
+        <!-- trim元素的主要功能是可以在自己包含的内容前加上某些前缀，也可以在其后加上某些后缀，
+        对应的属性是prefix和suffix；
+        可以把包含内容的首部某些内容忽略，也可以把尾部的某些内容忽略，
+        对应的属性是prefixOverrides和suffixOverrides -->
+        <trim prefix="(" suffix=")"  suffixOverrides="," >
+            <if test="realname != null ">
+                #{realname},
+            </if>
+            <if test="username != null ">
+                #{username},
+            </if>
+            <if test="password != null ">
+                #{password},
+            </if>
+            <if test="gender != null ">
+                #{gender},
+            </if>
+            <if test="telephone != null ">
+                #{telephone},
+            </if>
+            <if test="birthday != null ">
+                #{birthday},
+            </if>
+            <if test="sign != null ">
+                #{sign},
+            </if>
+            <if test="qq != null ">
+                #{qq},
+            </if>
+            <if test="province != null ">
+                #{province},
+            </if>
+            <if test="city != null ">
+                #{city},
+            </if>
+            <if test="createTime != null ">
+                #{createTime},
+            </if>
+            <if test="createUser != null ">
+                #{createUser},
+            </if>
+            <if test="updateTime != null ">
+                #{updateTime},
+            </if>
+            <if test="updateUser != null ">
+                #{updateUser},
+            </if>
+            <if test="del != null ">
+                #{del},
+            </if>
+        </trim>
+    </insert>
+
+    <!-- mybatis会通过接口文件的返回值类型来判断返回的是集合还是对象。
+    如果是对象，则按常规查询并返回；如果是List集合，mybatis则会将查询到的多条记录设置进集合中并返回 -->
+    <select id="queryTeacher" resultType="user">
+        SELECT
+        <include refid="UserColumns" />
+        FROM
+        t_user
+        ORDER BY weight DESC
+        LIMIT 5
+    </select>
+
+    <select id="getTotalItemsCount" parameterType="user" resultType="java.lang.Integer">
+        SELECT COUNT(id) FROM
+        t_user
+        WHERE del = 0
+        <if test="username != null and username != ''">
+            AND username like CONCAT('%',#{username},'%' )
+        </if>
+    </select>
+
+    <select id="queryPage" resultMap="UserResultMap">
+        SELECT
+        <include refid="UserColumns" />
+        FROM
+        t_user
+        WHERE del = 0
+        <if test="param1.username != null">
+            AND username like CONCAT('%',#{param1.username},'%' )
+        </if>
+        ORDER BY id
+        LIMIT #{param2.startIndex} , #{param2.pageSize}
+    </select>
+
+    <select id="getById" parameterType="java.lang.Long"  resultMap="UserResultMap">
+        SELECT
+        <include refid="UserColumns"  />
+        FROM
+        t_user
+        WHERE id = #{id}
+    </select>
+
+
+
+    <select id="getByUsernameAndPassword" parameterType="user"  resultMap="UserResultMap">
+        SELECT
+        <include refid="UserColumns"  />
+        FROM
+        t_user
+        WHERE username = #{username}
+        AND  password = #{password}
+    </select>
+
+
+
+    <update id="updateSelectivity" parameterType="user" flushCache="true">
+        UPDATE
+        t_user
+        SET
+        <trim suffixOverrides="," >
+            <if test="realname != null ">
+                realname = #{realname},
+            </if>
+            <if test="username != null ">
+                username = #{username},
+            </if>
+            <if test="password != null ">
+                password = #{password},
+            </if>
+            <if test="gender != null ">
+                gender = #{gender},
+            </if>
+            <if test="telephone != null ">
+                mobile = #{telephone},
+            </if>
+            <if test="birthday != null ">
+                birthday = #{birthday},
+            </if>
+            <if test="sign != null ">
+                sign = #{sign},
+            </if>
+            <if test="qq != null ">
+                qq = #{qq},
+            </if>
+            <if test="province != null ">
+                province = #{province},
+            </if>
+            <if test="city != null ">
+                city = #{city},
+            </if>
+            <if test="updateTime != null ">
+                update_time = #{updateTime},
+            </if>
+            <if test="updateUser != null ">
+                update_user = #{updateUser},
+            </if>
+            <if test="del != null ">
+                del = #{del},
+            </if>
+        </trim>
+        WHERE id = #{id}
+    </update>
+
+    <update id="update" parameterType="user" flushCache="true">
+        UPDATE
+        t_user
+        SET
+        realname = #{realname},
+        username = #{username},
+        password = #{password},
+        gender = #{gender},
+        telephone = #{telephone},
+        birthday = #{birthday},
+        sign = #{sign},
+        qq = #{qq},
+        province = #{province},
+        city = #{city},
+        update_time = #{updateTime},
+        update_user = #{updateUser}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="user" >
+        DELETE FROM
+        t_user
+        WHERE id = #{id}
+    </delete>
+
+    <update id="deleteLogic" parameterType="user" flushCache="true">
+        UPDATE
+        t_user
+        SET del = 1
+        WHERE id = #{id}
+    </update>
+
+</mapper>

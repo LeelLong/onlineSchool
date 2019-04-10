@@ -1,0 +1,23 @@
+CREATE TABLE `t_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `realname` varchar(50) NOT NULL DEFAULT '' COMMENT '真实姓名',
+  `username` varchar(50) NOT NULL DEFAULT '' COMMENT '登录用户名',
+  `password` varchar(32) NOT NULL DEFAULT '' COMMENT '密码',
+  `gender` tinyint(1) NOT NULL DEFAULT '1' COMMENT '性别',
+  `header` varchar(128) NOT NULL DEFAULT '' COMMENT '头像',
+  `telephone` varchar(15) NOT NULL DEFAULT '' COMMENT '手机号码',
+  `birthday` date NOT NULL DEFAULT '0000-01-01' COMMENT '生日日期',
+  `sign` varchar(500) NOT NULL DEFAULT '' COMMENT '签名',
+  `qq` varchar(20) NOT NULL DEFAULT '' COMMENT 'qq号',
+	`province` varchar(16) NOT NULL DEFAULT '' COMMENT '所在省份',
+  `city` varchar(16) NOT NULL DEFAULT '' COMMENT '所在城市',
+  `login_time` datetime NOT NULL DEFAULT '0000-01-01 00:00:00' COMMENT '最后一次登录时间',
+  `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '最后一次登录IP',
+  `create_time` datetime NOT NULL DEFAULT '0000-01-01 00:00:00',
+  `create_user` varchar(32) NOT NULL DEFAULT 'system',
+  `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `update_user` varchar(32) NOT NULL DEFAULT 'system',
+  `del` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `T_USER_USERNAME_UNIQUE` (`username`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';

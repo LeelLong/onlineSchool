@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="osAdmin:war">
+    <output-path>$PROJECT_DIR$/osAdmin/target</output-path>
+    <root id="archive" name="osAdmin.war">
+      <element id="artifact" artifact-name="osAdmin:war exploded" />
+    </root>
+  </artifact>
+</component>

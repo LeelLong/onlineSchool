@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+       http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <!-- 引入jdbc配置文件 -->
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <!-- classPath即为java文件编译之后的class文件的编译目录一般为web-inf/classes，
+                idea界面左侧target/classes
+                resources目录也会整合到classes下
+                用classpath*:需要遍历所有的classpath以及classpath下的jar包，所以加载速度是很慢的；
+                因此，在规划的时候，应该尽可能规划好资源文件所在的路径，尽量避免使用classpath* -->
+                <value>classpath:properties/*.properties</value>
+                <!--要是有多个配置文件，只需在这里继续添加即可 -->
+            </list>
+        </property>
+    </bean>
+
+    <!-- 配置MapperScannerConfigurer -->
+    <!-- 获得符合Mapper映射器要求的对象,将会查找类路径下的映射器并自动将它们创建成MapperFactoryBeans，
+    MapperFactoryBean实现了Spring的FactoryBean接口，
+    所以MapperFactoryBean是通过FactoryBean接口中定义的getObject方法来获取对应的Mapper对象的，
+    并且会将这些对象放到spring容器里面（默认的id是首字母小写之后的接口名)，
+    比如Mapper映射器名为EmpDAO,则默认的id是empDAO,也可以使用@Repository来修改默认的id -->
+    <!-- Mybatis中用SqlSession的getMapper()方法
+    UserDao userDao = sqlSession.getMapper(UserDao.class);
+    Mybatis帮我们在内存中代理(JDK代理)出一个接口的实现类,getMapper返回的是一个强类型 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 扫描该包及其子包下的所有映射器 -->
+        <property name="basePackage" value="classpath:dao"/>
+        <!-- 只扫描含有特定注解的接口 -->
+        <property name="annotationClass" value="annotation.MyBatisRepository"/>
+        <!-- 注入sqlSessionFactory，后面的value是SqlSessionFactory的bean的名字，
+        也就是sqlSessionFactory的id当我们的MapperScannerConfigurer启动的时候，
+        可能会出现我们的jdbc.properties文件未被加载，这样的话它拿到的DataSource就是错误的，
+        因为像${jdbc.url}这类的属性还没有被替换掉，所以通过BeanName后处理的方式，
+        当我们去用我们的Mybatis的时候，它才会去找我们对应的sqlSessionFactory，
+        为了防止它提前初始化我们的sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+    </bean>
+
+    <!-- 一、使用数据库连接池注册数据源,引入相关的配置文件 -->
+    <import resource="druid.xml"/>
+
+    <!-- 二、创建mybatis会话工厂 -->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <!-- 当MyBatis 映射器 XML 文件在和映射器接口不在同一路径下,有两种解决方法。
+        第一是手动在 MyBatis 的 XML 配置文件中使用<mappers>部分来指定类路径。
+        第二是使用工厂 bean 的 mapperLocations 属性 -->
+        <property name="mapperLocations" value="classpath:mapper/*.xml"/>
+        <!-- configLocation，它是用来指定 MyBatis 的 XML 配置文件路径的。
+        Mybatis 配置文件中通常包括 <settings> 或<typeAliases>的部分 -->
+        <property name="configLocation" value="classpath:config/mybatis.xml" />
+    </bean>
+
+    <!-- spring会去自动扫描base-package对应的路径或者该路径的子包下面的java文件，
+    如果扫描到文件中带有@Service,@Component,@Repository,@Controller等这些注解的类，
+    则把这些类注册为bean,多个包逗号隔开
+    注：在注解后加上例如@Component(value=”abc”)时，注册的这个类的bean的id就是adc -->
+    <context:component-scan base-package="service" />
+
+    <!-- 三、在会话工厂中取出SqlSessionTemplate这个对象
+    SqlSessionTemplate 是 MyBatis-Spring 的核心。
+    这个类负责管理 MyBatis 的 SqlSession, 调用 MyBatis 的 SQL 方法, 翻译异常。
+    SqlSessionTemplate 是线程安全的 -->
+    <!--
+    <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+        <constructor-arg index="0" ref="sqlSessionFactory"/>
+    </bean>
+    -->
+
+</beans>

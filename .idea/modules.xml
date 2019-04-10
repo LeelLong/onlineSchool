@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/onlineSchool.iml" filepath="$PROJECT_DIR$/onlineSchool.iml" />
+      <module fileurl="file://$PROJECT_DIR$/osAdmin/osAdmin.iml" filepath="$PROJECT_DIR$/osAdmin/osAdmin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/osCommon/osCommon.iml" filepath="$PROJECT_DIR$/osCommon/osCommon.iml" />
+      <module fileurl="file://$PROJECT_DIR$/osService/osService.iml" filepath="$PROJECT_DIR$/osService/osService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/osUser/osUser.iml" filepath="$PROJECT_DIR$/osUser/osUser.iml" />
+    </modules>
+  </component>
+</project>

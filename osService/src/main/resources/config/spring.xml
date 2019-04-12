@@ -34,7 +34,7 @@
     Mybatis帮我们在内存中代理(JDK代理)出一个接口的实现类,getMapper返回的是一个强类型 -->
     <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
         <!-- 扫描该包及其子包下的所有映射器 -->
-        <property name="basePackage" value="classpath:dao"/>
+        <property name="basePackage" value="dao"/>
         <!-- 只扫描含有特定注解的接口 -->
         <property name="annotationClass" value="annotation.MyBatisRepository"/>
         <!-- 注入sqlSessionFactory，后面的value是SqlSessionFactory的bean的名字，
@@ -45,6 +45,11 @@
         为了防止它提前初始化我们的sqlSessionFactory -->
         <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
     </bean>
+
+    <!--<bean id="userMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">-->
+        <!--<property name="mapperInterface" value="dao.UserDao" />-->
+        <!--<property name="sqlSessionFactory" ref="sqlSessionFactory" />-->
+    <!--</bean>-->
 
     <!-- 一、使用数据库连接池注册数据源,引入相关的配置文件 -->
     <import resource="druid.xml"/>
@@ -76,5 +81,6 @@
         <constructor-arg index="0" ref="sqlSessionFactory"/>
     </bean>
     -->
+    <!--<bean id="userService" class="service.UserServiceImpl"/>-->
 
 </beans>

@@ -41,7 +41,6 @@
             <!-- 对包进行扫描，可以批量进行别名设置，设置规则是：获取类名称，将其第一个字母变为小写
             如：<typeAlias type="com.lee.entity.User" alias="user"/>
             -->
-            <package name="dao" />
             <package name="entity" />
         </typeAliases>
         <!-- 插件 -->

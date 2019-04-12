@@ -5,27 +5,18 @@
 
     <!-- 将查询到的复杂数据映射到一个结果集当中,常用于多表查询，自动映射开启时会自动映射 -->
     <resultMap id="UserResultMap" type="User" >
-        <id column="id" property="id" jdbcType="INTEGER"/>
         <result column="realname" property="realname" jdbcType="VARCHAR" javaType="String"/>
         <result column="username" property="username" jdbcType="VARCHAR" javaType="String"/>
         <result column="password" property="password" jdbcType="VARCHAR" javaType="String"/>
-        <result column="gender" property="gender" jdbcType="TINYINT" javaType="short"/>
+        <result column="gender" property="gender" jdbcType="TINYINT" javaType="boolean"/>
         <result column="telephone" property="telephone" jdbcType="VARCHAR" javaType="String"/>
         <result column="birthday" property="birthday" jdbcType="DATE" javaType="java.sql.Date"/>
         <result column="sign" property="sign" jdbcType="VARCHAR" javaType="String"/>
         <result column="qq" property="qq" jdbcType="VARCHAR" javaType="String"/>
         <result column="weight" property="weight" jdbcType="INTEGER" javaType="int"/>
-        <result column="province" property="province" jdbcType="VARCHAR" javaType="String"/>
-        <result column="city" property="city" jdbcType="VARCHAR" javaType="String"/>
-        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
-        <result column="create_user" property="createUser" jdbcType="VARCHAR" javaType="String"/>
-        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" javaType="java.sql.Timestamp"/>
-        <result column="update_user" property="updateUser" jdbcType="VARCHAR" javaType="String"/>
-        <result column="del" property="del" jdbcType="TINYINT" />
     </resultMap>
 
     <sql id="UserColumns">
-        id,
         realname,
         username,
         password,
@@ -34,17 +25,10 @@
         birthday,
         sign,
         qq,
-        weight,
-        province,
-        city,
-        create_time,
-        create_user,
-        update_time,
-        update_user,
-        del
+        weight
     </sql>
 
-    <select id="getByUsername" parameterType="java.lang.String"  resultMap="UserResultMap">
+    <select id="getByUsername" parameterType="java.lang.String"  resultType="user">
         SELECT
         <include refid="UserColumns" />
         FROM
@@ -67,13 +51,6 @@
             birthday,
             sign,
             qq,
-            province,
-            city,
-            create_time,
-            create_user,
-            update_time,
-            update_user,
-            del,
         </trim>
         VALUES
         <!-- trim元素的主要功能是可以在自己包含的内容前加上某些前缀，也可以在其后加上某些后缀，
@@ -104,27 +81,6 @@
             </if>
             <if test="qq != null ">
                 #{qq},
-            </if>
-            <if test="province != null ">
-                #{province},
-            </if>
-            <if test="city != null ">
-                #{city},
-            </if>
-            <if test="createTime != null ">
-                #{createTime},
-            </if>
-            <if test="createUser != null ">
-                #{createUser},
-            </if>
-            <if test="updateTime != null ">
-                #{updateTime},
-            </if>
-            <if test="updateUser != null ">
-                #{updateUser},
-            </if>
-            <if test="del != null ">
-                #{del},
             </if>
         </trim>
     </insert>
@@ -162,7 +118,7 @@
         LIMIT #{param2.startIndex} , #{param2.pageSize}
     </select>
 
-    <select id="getById" parameterType="java.lang.Long"  resultMap="UserResultMap">
+    <select id="getById" parameterType="java.lang.Long"  resultType="user">
         SELECT
         <include refid="UserColumns"  />
         FROM
@@ -172,7 +128,7 @@
 
 
 
-    <select id="getByUsernameAndPassword" parameterType="user"  resultMap="UserResultMap">
+    <select id="getByUsernameAndPassword" parameterType="user"  resultType="user">
         SELECT
         <include refid="UserColumns"  />
         FROM
@@ -212,18 +168,6 @@
             <if test="qq != null ">
                 qq = #{qq},
             </if>
-            <if test="province != null ">
-                province = #{province},
-            </if>
-            <if test="city != null ">
-                city = #{city},
-            </if>
-            <if test="updateTime != null ">
-                update_time = #{updateTime},
-            </if>
-            <if test="updateUser != null ">
-                update_user = #{updateUser},
-            </if>
             <if test="del != null ">
                 del = #{del},
             </if>
@@ -243,10 +187,6 @@
         birthday = #{birthday},
         sign = #{sign},
         qq = #{qq},
-        province = #{province},
-        city = #{city},
-        update_time = #{updateTime},
-        update_user = #{updateUser}
         WHERE id = #{id}
     </update>
 

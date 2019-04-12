@@ -31,6 +31,7 @@
           <element id="archive" name="osService-1.0-SNAPSHOT.jar">
             <element id="module-output" name="osService" />
           </element>
+          <element id="library" level="project" name="Maven: org.slf4j:slf4j-api:1.7.25" />
         </element>
       </element>
       <element id="directory" name="META-INF">

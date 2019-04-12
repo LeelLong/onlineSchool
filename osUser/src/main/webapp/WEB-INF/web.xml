@@ -6,6 +6,8 @@
 
 	<display-name>wxd-videos-admin-mng</display-name>
 
+	<!-- <welcome-file-list>标签下可以设置多个首页<welcome-file>，
+	容器启动后会在根目录下依次查找匹配的物理存在的文件，返回第一个找到的文件，没有找到报404错误 -->
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
@@ -24,11 +26,12 @@
 			<param-value>classpath:config/springmvc.xml</param-value>
 		</init-param>
 	</servlet>
+	<!-- 配置拦截路径 -->
 	<servlet-mapping>
 		<servlet-name>dispatch</servlet-name>
-		<!-- 1、.action 表示以.action结尾的 由DispatcherServlet进行解析
+		<!-- 1、.controller 表示以.controller结尾的 由DispatcherServlet进行解析
           	 2、/ 表示所有访问都由DispatcherServlet进行解析 -->
-        <url-pattern>*.Controller</url-pattern>
+        <url-pattern>*.controller</url-pattern>
 	</servlet-mapping>
 
 	<!-- 加载spring容器 -->
@@ -73,11 +76,5 @@
 		<filter-name>CharacterEncodingFilter</filter-name>
 		<url-pattern>/*</url-pattern>
 	</filter-mapping>
-	<!-- <welcome-file-list>标签下可以设置多个首页<welcome-file>，
-	容器启动后会在根目录下依次查找匹配的物理存在的文件，返回第一个找到的文件，没有找到报404错误 -->
-	<welcome-file-list>
-		<welcome-file>index.jsp</welcome-file>
-	</welcome-file-list>
-
 
 </web-app>

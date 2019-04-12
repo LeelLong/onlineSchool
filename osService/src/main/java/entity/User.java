@@ -9,6 +9,21 @@ import java.util.Date;
 public class User implements Serializable{
 
     private static final long serialVersionUID = 1177253723201979141L;
+
+    public User(){};
+
+    public User(String realname, String username, String password, boolean gender, String telephone, Date birthday, String sign, String qq, int weight) {
+        this.realname = realname;
+        this.username = username;
+        this.password = password;
+        this.gender = gender;
+        this.telephone = telephone;
+        this.birthday = birthday;
+        this.sign = sign;
+        this.qq = qq;
+        this.weight = weight;
+    }
+
     /**
      *真实姓名
      **/
@@ -27,12 +42,7 @@ public class User implements Serializable{
     /**
      *性别
      **/
-    private short gender;
-
-    /**
-     *头像
-     **/
-    private String header;
+    private boolean gender;
 
     /**
      *手机号码
@@ -60,24 +70,17 @@ public class User implements Serializable{
     private int weight;
 
     /**
-     *最后一次登录时间
+     *删除标记
      **/
-    private Date loginTime;
+    private boolean del;
 
-    /**
-     *最后一次登录IP
-     **/
-    private String ip;
+    public boolean getDel() {
+        return del;
+    }
 
-    /**
-     *所在省份
-     **/
-    private String province;
-
-    /**
-     *所在城市
-     **/
-    private String city;
+    public void setDel(boolean del) {
+        this.del = del;
+    }
 
     public String getRealname(){
         return realname;
@@ -100,18 +103,11 @@ public class User implements Serializable{
         this.password = password;
     }
 
-    public short getGender(){
+    public boolean getGender(){
         return gender;
     }
-    public void setGender(short gender){
+    public void setGender(boolean gender){
         this.gender = gender;
-    }
-
-    public String getHeader(){
-        return header;
-    }
-    public void setHeader(String header){
-        this.header = header;
     }
 
     public String getTelephone(){
@@ -150,33 +146,19 @@ public class User implements Serializable{
         this.weight = weight;
     }
 
-    public Date getLoginTime(){
-        return loginTime;
+    @Override
+    public String toString() {
+        return "User{" +
+                "realname='" + realname + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", gender=" + gender +
+                ", telephone='" + telephone + '\'' +
+                ", birthday=" + birthday +
+                ", sign='" + sign + '\'' +
+                ", qq='" + qq + '\'' +
+                ", weight=" + weight +
+                '}';
     }
-    public void setLoginTime(Date loginTime){
-        this.loginTime = loginTime;
-    }
-
-    public String getIp(){
-        return ip;
-    }
-    public void setIp(String ip){
-        this.ip = ip;
-    }
-
-    public String getProvince(){
-        return province;
-    }
-    public void setProvince(String province){
-        this.province = province;
-    }
-
-    public String getCity(){
-        return city;
-    }
-    public void setCity(String city){
-        this.city = city;
-    }
-
 }
 

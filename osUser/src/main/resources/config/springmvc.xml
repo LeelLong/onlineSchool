@@ -18,59 +18,45 @@ http://www.springframework.org/schema/tx/spring-tx.xsd
 http://www.springframework.org/schema/aop
 http://www.springframework.org/schema/aop/spring-aop.xsd">
 
-
         <!-- 配置视图解析器 -->
         <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
                 <!-- 使用前缀和后缀 -->
-                <property name="prefix" value="/page/"></property>
-                <property name="suffix" value=".jsp"></property>
+                <property name="prefix" value="/WEB-INF/page/"/>
+                <property name="suffix" value=".jsp"/>
         </bean>
 
         <!-- 使用组件扫描的方式可以一次扫描多个Controller -->
-        <context:component-scan base-package="controller">
-        </context:component-scan>
+        <context:component-scan base-package="controller"/>
         <!-- 配置注解的处理器映射器和处理器适配器 -->
-        <mvc:annotation-driven conversion-service="conversionService"></mvc:annotation-driven>
+        <mvc:annotation-driven/>
 
-        <!-- 自定义参数类型绑定 -->
-        <bean id="conversionService" class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
-                <property name="converters">
-                        <list>
-                                <!-- 日期类型绑定 -->
-                                <bean class="controller.converter.DateConverter"/>
-                        </list>
-                </property>
-        </bean>
+        <!--&lt;!&ndash; 配置ViewResolver 。可用多个ViewResolver 。使用order属性排序。   InternalResourceViewResolver 放在最后&ndash;&gt;-->
+        <!--<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">-->
+                <!--<property name="order" value="1"></property>-->
+                <!--<property name="mediaTypes">-->
+                        <!--<map>-->
+                                <!--&lt;!&ndash; 告诉视图解析器，返回的类型为json格式 &ndash;&gt;-->
+                                <!--<entry key="json" value="application/json" />-->
+                                <!--<entry key="xml" value="application/xml" />-->
+                                <!--<entry key="htm" value="text/htm" />-->
+                        <!--</map>-->
+                <!--</property>-->
+                <!--<property name="defaultViews">-->
+                        <!--<list>-->
+                                <!--&lt;!&ndash; ModelAndView里的数据变成JSON &ndash;&gt;-->
+                                <!--<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />-->
+                        <!--</list>-->
+                <!--</property>-->
+                <!--<property name="ignoreAcceptHeader" value="true"></property>-->
+        <!--</bean>-->
 
-
-        <!-- 访问静态资源文件 -->
-        <!-- <mvc:default-servlet-handler/> 需要在web.xml中配置-->
-
-        <mvc:resources mapping="/images/**" location="/images/" />
-        <mvc:resources mapping="/css/**" location="/css/" />
-        <mvc:resources mapping="/js/**" location="/js/" />
-        <mvc:resources mapping="/imgdata/**" location="/imgdata/" />
-
-        <!-- 定义拦截器 -->
-        <mvc:interceptors>
-                <!-- 直接定义拦截所有请求 -->
-                <bean class="com.wxisme.ssm.interceptor.IdentityInterceptor"></bean>
-                <!-- <mvc:interceptor>
-                    拦截所有路径的请求   包括子路径
-                    <mvc:mapping path="/**"/>
-                    <bean class="com.wxisme.ssm.interceptor.IdentityInterceptor"></bean>
-                </mvc:interceptor> -->
-        </mvc:interceptors>
-
-        <!--配置上传文件数据解析器  -->
-        <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-                <property name="maxUploadSize">
-                        <value>9242880</value>
-                </property>
-        </bean>
-
-        <!-- 定义全局异常处理器 -->
-        <!-- 只有一个全局异常处理器起作用 -->
-        <bean id="exceptionResolver" class="com.wxisme.ssm.exception.OverallExceptionResolver"></bean>
+        <!--&lt;!&ndash; 启动SpringMVC的注解功能，完成请求和注解POJO的映射 &ndash;&gt;-->
+        <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">-->
+                <!--<property name="messageConverters">-->
+                        <!--<list>-->
+                                <!--<ref bean="mappingJacksonHttpMessageConverter" /> &lt;!&ndash; JSON转换器 &ndash;&gt;-->
+                        <!--</list>-->
+                <!--</property>-->
+        <!--</bean>-->
 
 </beans>

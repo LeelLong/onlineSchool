@@ -1,12 +1,17 @@
 package service;
 
 import dao.UserDao;
+import entity.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {
+
+    private static Logger log= LoggerFactory.getLogger(UserService.class);
 
     /*@Resource的装配顺序：
     1、@Resource后面没有任何内容，默认通过name属性去匹配bean，找不到再按type去匹配
@@ -20,8 +25,19 @@ public class UserServiceImpl implements UserService {
     @Resource
     private UserDao userDao;
 
+    /**
+     * 根据username获取
+     */
     @Override
-    public int vi() {
-        return 0;
+    public User getByUsername(String username){
+        return userDao.getByUsername(username);
+    }
+
+    /**
+     *创建新记录
+     **/
+    @Override
+    public void createSelectivity(User user){
+        userDao.createSelectivity(user);
     }
 }

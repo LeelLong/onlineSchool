@@ -1,164 +1,272 @@
 package entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-/**
- * 用户
- */
-public class User implements Serializable{
+public class User {
 
-    private static final long serialVersionUID = 1177253723201979141L;
+    public User(){
 
-    public User(){};
+    }
 
-    public User(String realname, String username, String password, boolean gender, String telephone, Date birthday, String sign, String qq, int weight) {
+    public User(String realname, String username, String password, Boolean gender, String telephone, Date birthday, String qq) {
         this.realname = realname;
         this.username = username;
         this.password = password;
         this.gender = gender;
         this.telephone = telephone;
         this.birthday = birthday;
-        this.sign = sign;
         this.qq = qq;
-        this.weight = weight;
     }
 
     /**
-     *真实姓名
-     **/
+     * 
+     */
+    private Integer id;
+
+    /**
+     * 真实姓名
+     */
     private String realname;
 
     /**
-     *用户名
-     **/
+     * 登录用户名
+     */
     private String username;
 
     /**
-     *密码
-     **/
+     * 密码
+     */
     private String password;
 
     /**
-     *性别
-     **/
-    private boolean gender;
+     * 性别
+     */
+    private Boolean gender;
 
     /**
-     *手机号码
-     **/
+     * 手机号码
+     */
     private String telephone;
 
     /**
-     *生日
-     **/
+     * 生日日期
+     */
     private Date birthday;
 
     /**
-     *签名
-     **/
-    private String sign;
-
-    /**
-     *qq号
-     **/
+     * qq号
+     */
     private String qq;
 
     /**
-     *推荐权重
-     **/
-    private int weight;
+     * 权重
+     */
+    private Integer weight;
 
     /**
-     *删除标记
-     **/
-    private boolean del;
+     * 
+     */
+    private Date update_time;
 
-    public boolean getDel() {
-        return del;
+    /**
+     * 
+     */
+    private String update_user;
+
+    /**
+     * 
+     */
+    private Boolean del;
+
+    /**
+     * 
+     * @return id 
+     */
+    public Integer getId() {
+        return id;
     }
 
-    public void setDel(boolean del) {
-        this.del = del;
+    /**
+     * 
+     * @param id 
+     */
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-    public String getRealname(){
+    /**
+     * 真实姓名
+     * @return realname 真实姓名
+     */
+    public String getRealname() {
         return realname;
     }
-    public void setRealname(String realname){
-        this.realname = realname;
+
+    /**
+     * 真实姓名
+     * @param realname 真实姓名
+     */
+    public void setRealname(String realname) {
+        this.realname = realname == null ? null : realname.trim();
     }
 
-    public String getUsername(){
+    /**
+     * 登录用户名
+     * @return username 登录用户名
+     */
+    public String getUsername() {
         return username;
     }
-    public void setUsername(String username){
-        this.username = username;
+
+    /**
+     * 登录用户名
+     * @param username 登录用户名
+     */
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
     }
 
-    public String getPassword(){
+    /**
+     * 密码
+     * @return password 密码
+     */
+    public String getPassword() {
         return password;
     }
-    public void setPassword(String password){
-        this.password = password;
+
+    /**
+     * 密码
+     * @param password 密码
+     */
+    public void setPassword(String password) {
+        this.password = password == null ? null : password.trim();
     }
 
-    public boolean getGender(){
+    /**
+     * 性别
+     * @return gender 性别
+     */
+    public Boolean getGender() {
         return gender;
     }
-    public void setGender(boolean gender){
+
+    /**
+     * 性别
+     * @param gender 性别
+     */
+    public void setGender(Boolean gender) {
         this.gender = gender;
     }
 
-    public String getTelephone(){
+    /**
+     * 手机号码
+     * @return telephone 手机号码
+     */
+    public String getTelephone() {
         return telephone;
     }
-    public void setTelephone(String telephone){
-        this.telephone = telephone;
+
+    /**
+     * 手机号码
+     * @param telephone 手机号码
+     */
+    public void setTelephone(String telephone) {
+        this.telephone = telephone == null ? null : telephone.trim();
     }
 
-    public Date getBirthday(){
+    /**
+     * 生日日期
+     * @return birthday 生日日期
+     */
+    public Date getBirthday() {
         return birthday;
     }
-    public void setBirthday(Date birthday){
+
+    /**
+     * 生日日期
+     * @param birthday 生日日期
+     */
+    public void setBirthday(Date birthday) {
         this.birthday = birthday;
     }
 
-    public String getSign(){
-        return sign;
-    }
-    public void setSign(String sign){
-        this.sign = sign;
-    }
-
-    public String getQq(){
+    /**
+     * qq号
+     * @return qq qq号
+     */
+    public String getQq() {
         return qq;
     }
-    public void setQq(String qq){
-        this.qq = qq;
+
+    /**
+     * qq号
+     * @param qq qq号
+     */
+    public void setQq(String qq) {
+        this.qq = qq == null ? null : qq.trim();
     }
 
-    public int getWeight() {
+    /**
+     * 权重
+     * @return weight 权重
+     */
+    public Integer getWeight() {
         return weight;
     }
 
-    public void setWeight(int weight) {
+    /**
+     * 权重
+     * @param weight 权重
+     */
+    public void setWeight(Integer weight) {
         this.weight = weight;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "realname='" + realname + '\'' +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", gender=" + gender +
-                ", telephone='" + telephone + '\'' +
-                ", birthday=" + birthday +
-                ", sign='" + sign + '\'' +
-                ", qq='" + qq + '\'' +
-                ", weight=" + weight +
-                '}';
+    /**
+     * 
+     * @return update_time 
+     */
+    public Date getUpdate_time() {
+        return update_time;
+    }
+
+    /**
+     * 
+     * @param update_time 
+     */
+    public void setUpdate_time(Date update_time) {
+        this.update_time = update_time;
+    }
+
+    /**
+     * 
+     * @return update_user 
+     */
+    public String getUpdate_user() {
+        return update_user;
+    }
+
+    /**
+     * 
+     * @param update_user 
+     */
+    public void setUpdate_user(String update_user) {
+        this.update_user = update_user == null ? null : update_user.trim();
+    }
+
+    /**
+     * 
+     * @return del 
+     */
+    public Boolean getDel() {
+        return del;
+    }
+
+    /**
+     * 
+     * @param del 
+     */
+    public void setDel(Boolean del) {
+        this.del = del;
     }
 }
-

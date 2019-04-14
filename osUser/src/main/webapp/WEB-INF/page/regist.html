@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Login</title>
-    <link rel="stylesheet" href="css/login.css" />
+    <link rel="stylesheet" href="../../css/login.css"/>
 </head>
 <body>
 <div id="topd">
@@ -14,22 +14,26 @@
     <div id="middle_head">
         立即注册
     </div>
-    <form id="middle_form">
+    <form id="middle_form" method="post">
         账号<span class="middle_symbol">*</span><br>
         <input type="text" name="username" class="middle_text"><br>
         密码<span class="middle_symbol">*</span><br>
         <input type="text" name="password" class="middle_text"><br>
+        确认密码<span class="middle_symbol">*</span><br>
+        <input type="text" name="rePassword" class="middle_text"><br>
         姓名<span class="middle_symbol">*</span><br>
-        <input type="text" name="password" class="middle_text"><br>
+        <input type="text" name="realname" class="middle_text"><br>
         手机号<span class="middle_symbol">*</span><br>
-        <input type="text" name="password" class="middle_text"><br>
+        <input type="text" name="telephone" class="middle_text"><br>
         qq号<br>
-        <input type="text" name="password" class="middle_text"><br>
+        <input type="text" name="qq" class="middle_text"><br>
         性别<span class="middle_symbol">*</span><br>
-        <label for="male">男</label><input type="radio" name="gender" value="1" class="middle_radio" id="male"/>
-        <label for="female" id="middle_radio_text">女</label></span><input type="radio" name="gender" value="0" class="middle_radio" id="female"/><br>
+        <label for="male">男</label>
+        <input type="radio" name="gender" value="1" class="middle_radio" id="male"/>
+        <label for="female" id="middle_radio_text">女</label>
+        <input type="radio" name="gender" value="0" class="middle_radio" id="female"/><br>
         生日<br>
-        <input type="date" value="2000-01-01" id="middle_date">
+        <input type="date" value="2000-01-01" id="middle_date" name="birthday">
         <input type="submit" value="注册" id="sub"/>
 
     </form>

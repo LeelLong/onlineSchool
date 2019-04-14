@@ -17,6 +17,15 @@
 		<welcome-file>default.jsp</welcome-file>
 	</welcome-file-list>
 
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.css</url-pattern>
+	</servlet-mapping>
+	<servlet-mapping>
+		<servlet-name>default</servlet-name>
+		<url-pattern>*.js</url-pattern>
+	</servlet-mapping>
+
 	<!-- springmvc核心前端控制器 -->
 	<servlet>
 		<servlet-name>dispatch</servlet-name>
@@ -31,7 +40,7 @@
 		<servlet-name>dispatch</servlet-name>
 		<!-- 1、.controller 表示以.controller结尾的 由DispatcherServlet进行解析
           	 2、/ 表示所有访问都由DispatcherServlet进行解析 -->
-        <url-pattern>*.controller</url-pattern>
+        <url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 	<!-- 加载spring容器 -->

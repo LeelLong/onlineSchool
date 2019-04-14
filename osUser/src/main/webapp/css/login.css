@@ -5,7 +5,7 @@
     }
     #topd{
         background-color: #333;
-        width: 1500px;
+        width: 100%;
     }
     .topa{
         color: #b0b0b0;
@@ -45,13 +45,13 @@
     }
     .middle_text {
         padding: 8px;
-        width: 300px;
+        width: 90%;
     }
     .middle_radio{
         margin-left: 10px;
     }
     #middle_radio_text{
-        margin-left: 100px;
+        margin-left: 28%;
     }
 
     #middle_form #sub{
@@ -62,7 +62,7 @@
         color: #fff;
         padding: 10px;
         font-size: 20px;
-        width: 320px;
+        width: 100%;
     }
     #middle_form #sub:hover{
         background-color: red;
@@ -72,7 +72,7 @@
         color: #000;
         text-decoration: none;
         font-size: 20px;
-        margin-left: 140px;
+        margin-left: 42%;
     }
     #middle_a:hover{
         color: #b0b0b0;
@@ -81,3 +81,42 @@
     .middle_symbol{
         color: red;
     }
+
+input[type="text"]{
+    box-sizing: border-box;
+    border-radius:4px;
+    height: 40px;
+    line-height: 40px;
+    border:1px solid #c8cccf;
+    color:#6a6f77;
+    outline:0;
+    padding:0 8px;
+    text-decoration:none;
+    width:100%;
+}
+
+input[type="password"]{
+    box-sizing: border-box;
+    border-radius:4px;
+    height: 40px;
+    line-height: 40px;
+    border:1px solid #c8cccf;
+    color:#6a6f77;
+    outline:0;
+    padding:0 8px;
+    text-decoration:none;
+    width:100%;
+}
+
+input[type="date"]{
+    box-sizing: border-box;
+    border-radius:4px;
+    height: 40px;
+    line-height: 40px;
+    border:1px solid #c8cccf;
+    color:#6a6f77;
+    outline:0;
+    padding:0 8px;
+    text-decoration:none;
+    width:100%;
+}

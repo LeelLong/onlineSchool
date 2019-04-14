@@ -27,7 +27,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 
         <!-- 使用组件扫描的方式可以一次扫描多个Controller -->
         <context:component-scan base-package="controller"/>
-        <!-- 配置注解的处理器映射器和处理器适配器 -->
+        <!-- 配置注解驱动，相当于配置最新的处理器映射器和处理器适配器，对json数据响应提供支持 -->
         <mvc:annotation-driven/>
 
         <!--&lt;!&ndash; 配置ViewResolver 。可用多个ViewResolver 。使用order属性排序。   InternalResourceViewResolver 放在最后&ndash;&gt;-->

@@ -36,7 +36,7 @@
         <!-- 扫描该包及其子包下的所有映射器 -->
         <property name="basePackage" value="dao"/>
         <!-- 只扫描含有特定注解的接口 -->
-        <property name="annotationClass" value="annotation.MyBatisRepository"/>
+        <!--<property name="annotationClass" value="annotation.MyBatisRepository"/>-->
         <!-- 注入sqlSessionFactory，后面的value是SqlSessionFactory的bean的名字，
         也就是sqlSessionFactory的id当我们的MapperScannerConfigurer启动的时候，
         可能会出现我们的jdbc.properties文件未被加载，这样的话它拿到的DataSource就是错误的，

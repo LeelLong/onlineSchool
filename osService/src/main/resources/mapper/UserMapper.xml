@@ -1,55 +1,86 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="dao.UserDao">
+<mapper namespace="dao.UserMapper">
 
     <!-- 将查询到的复杂数据映射到一个结果集当中,常用于多表查询，自动映射开启时会自动映射 -->
-    <resultMap id="UserResultMap" type="User" >
+    <resultMap id="UserResultMap" type="user">
+        <result column="id" property="id" jdbcType="INTEGER" javaType="int" />
         <result column="realname" property="realname" jdbcType="VARCHAR" javaType="String"/>
         <result column="username" property="username" jdbcType="VARCHAR" javaType="String"/>
         <result column="password" property="password" jdbcType="VARCHAR" javaType="String"/>
         <result column="gender" property="gender" jdbcType="TINYINT" javaType="boolean"/>
         <result column="telephone" property="telephone" jdbcType="VARCHAR" javaType="String"/>
         <result column="birthday" property="birthday" jdbcType="DATE" javaType="java.sql.Date"/>
-        <result column="sign" property="sign" jdbcType="VARCHAR" javaType="String"/>
         <result column="qq" property="qq" jdbcType="VARCHAR" javaType="String"/>
         <result column="weight" property="weight" jdbcType="INTEGER" javaType="int"/>
     </resultMap>
 
     <sql id="UserColumns">
+        id,
         realname,
         username,
         password,
         gender,
         telephone,
         birthday,
-        sign,
         qq,
         weight
-    </sql>
+  </sql>
 
-    <select id="getByUsername" parameterType="java.lang.String"  resultType="user">
+    <select id="queryByName" parameterType="user" resultType="user">
         SELECT
-        <include refid="UserColumns" />
+        <include refid="UserColumns"/>
         FROM
         t_user
-        WHERE username = #{username}
-        AND DEL = 0
+        WHERE
+        del = 0
+        <if test="username != null and username != ''">
+            AND username like CONCAT('%',#{username},'%' )
+        </if>
+        <if test="realname != null and realname != ''">
+            AND realname like CONCAT('%',#{realname},'%' )
+        </if>
     </select>
+
+    <select id="queryAll" resultType="user">
+        SELECT
+        <include refid="UserColumns"/>
+        FROM
+        t_user
+        WHERE del = 0
+    </select>
+
+    <update id="updateWeight" parameterType="user">
+        UPDATE
+        t_user
+        SET
+        <if test="weight != null ">
+            weight = #{weight}
+        </if>
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="deleteUser" parameterType="user" flushCache="true">
+        UPDATE
+        t_user
+        SET del = 1
+        WHERE id = #{id}
+    </update>
 
     <!-- flushCache默认为false，表示任何时候语句被调用，都不会去清空本地缓存和二级缓存。
          useCache默认为true，表示会将本条语句的结果进行二级缓存。 -->
-    <insert id="createSelectivity" parameterType="user" flushCache="true"  useGeneratedKeys="true" keyProperty="id"  >
+    <insert id="createSelectivity" parameterType="user" flushCache="true" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
         t_user
-        <trim prefix="(" suffix=")"  suffixOverrides="," >
+        <trim prefix="(" suffix=")" suffixOverrides=",">
             realname,
             username,
             password,
             gender,
             telephone,
             birthday,
-            sign,
             qq,
         </trim>
         VALUES
@@ -57,7 +88,7 @@
         对应的属性是prefix和suffix；
         可以把包含内容的首部某些内容忽略，也可以把尾部的某些内容忽略，
         对应的属性是prefixOverrides和suffixOverrides -->
-        <trim prefix="(" suffix=")"  suffixOverrides="," >
+        <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="realname != null ">
                 #{realname},
             </if>
@@ -76,9 +107,6 @@
             <if test="birthday != null ">
                 #{birthday},
             </if>
-            <if test="sign != null ">
-                #{sign},
-            </if>
             <if test="qq != null ">
                 #{qq},
             </if>
@@ -89,7 +117,7 @@
     如果是对象，则按常规查询并返回；如果是List集合，mybatis则会将查询到的多条记录设置进集合中并返回 -->
     <select id="queryTeacher" resultType="user">
         SELECT
-        <include refid="UserColumns" />
+        <include refid="UserColumns"/>
         FROM
         t_user
         ORDER BY weight DESC
@@ -107,7 +135,7 @@
 
     <select id="queryPage" resultMap="UserResultMap">
         SELECT
-        <include refid="UserColumns" />
+        <include refid="UserColumns"/>
         FROM
         t_user
         WHERE del = 0
@@ -118,32 +146,30 @@
         LIMIT #{param2.startIndex} , #{param2.pageSize}
     </select>
 
-    <select id="getById" parameterType="java.lang.Long"  resultType="user">
+    <select id="getById" parameterType="java.lang.Long" resultType="user">
         SELECT
-        <include refid="UserColumns"  />
+        <include refid="UserColumns"/>
         FROM
         t_user
         WHERE id = #{id}
     </select>
 
 
-
-    <select id="getByUsernameAndPassword" parameterType="user"  resultType="user">
+    <select id="getByUsernameAndPassword" parameterType="user" resultType="user">
         SELECT
-        <include refid="UserColumns"  />
+        <include refid="UserColumns"/>
         FROM
         t_user
         WHERE username = #{username}
-        AND  password = #{password}
+        AND password = #{password}
     </select>
-
 
 
     <update id="updateSelectivity" parameterType="user" flushCache="true">
         UPDATE
         t_user
         SET
-        <trim suffixOverrides="," >
+        <trim suffixOverrides=",">
             <if test="realname != null ">
                 realname = #{realname},
             </if>
@@ -162,9 +188,6 @@
             <if test="birthday != null ">
                 birthday = #{birthday},
             </if>
-            <if test="sign != null ">
-                sign = #{sign},
-            </if>
             <if test="qq != null ">
                 qq = #{qq},
             </if>
@@ -176,31 +199,23 @@
     </update>
 
     <update id="update" parameterType="user" flushCache="true">
-        UPDATE
-        t_user
-        SET
-        realname = #{realname},
-        username = #{username},
-        password = #{password},
-        gender = #{gender},
-        telephone = #{telephone},
-        birthday = #{birthday},
-        sign = #{sign},
-        qq = #{qq},
-        WHERE id = #{id}
-    </update>
+    UPDATE
+    t_user
+    SET
+    realname = #{realname},
+    username = #{username},
+    password = #{password},
+    gender = #{gender},
+    telephone = #{telephone},
+    birthday = #{birthday},
+    qq = #{qq},
+    WHERE id = #{id}
+  </update>
 
-    <delete id="delete" parameterType="user" >
-        DELETE FROM
-        t_user
-        WHERE id = #{id}
-    </delete>
-
-    <update id="deleteLogic" parameterType="user" flushCache="true">
-        UPDATE
-        t_user
-        SET del = 1
-        WHERE id = #{id}
-    </update>
+    <delete id="delete" parameterType="user">
+    DELETE FROM
+    t_user
+    WHERE id = #{id}
+  </delete>
 
 </mapper>

@@ -1,0 +1,92 @@
+@charset "UTF-8";
+* {
+    margin: 0;
+    font-family: 微软雅黑;
+}
+
+#topd {
+    background-color: #333;
+    width: 100%;
+}
+
+#topa1 {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 40px;
+    margin-left: 8%;
+}
+
+#topa1:hover {
+    color: #FFFFFF;
+}
+
+#middle {
+    width: 22%;
+    margin-left: 30%;
+    margin-top: 6%;
+    box-shadow: darkgrey 10px 10px 30px 5px;
+    border-radius: 5px;
+    padding: 30px 100px;
+}
+
+#middle_head {
+    font-weight: bold;
+    font-size: 50px;
+}
+
+#middle_form {
+    line-height: 40px;
+    margin: 20px 0;
+}
+
+.middle_text {
+    padding: 8px;
+    width: 94%;
+}
+
+.middle_radio {
+    margin-left: 10px;
+}
+
+#middle_radio_text {
+    margin-left: 28%;
+}
+
+#middle_form #sub {
+    margin-top: 20px;
+    background-color: #e54040;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px;
+    font-size: 20px;
+    width: 96%;
+}
+
+#middle_form #sub:hover {
+    background-color: red;
+    cursor: pointer;
+}
+
+.middle_symbol {
+    color: red;
+}
+
+#msg {
+    color: red;
+    height: 20px;
+}
+
+input{
+    box-sizing: border-box;
+    border-radius:4px;
+    height: 40px;
+    line-height: 40px;
+    border:1px solid #c8cccf;
+    color:#6a6f77;
+    outline:0;
+    padding:0 8px;
+    text-decoration:none;
+    width:100%;
+}

@@ -1,11 +1,11 @@
 package dao;
-import annotation.MyBatisRepository;
+
 import entity.User;
+import page.TailPage;
 
 import java.util.List;
 
-@MyBatisRepository
-public interface UserDao {
+public interface UserMapper{
 
     /**
      * 根据id获取
@@ -13,9 +13,19 @@ public interface UserDao {
     public User getById(Long id);
 
     /**
-     * 根据username获取
+     * 根据username或realname查询
      */
-    public User getByUsername(String username);
+    public List<User> queryByName(User user);
+
+    /**
+     * 更新user的权重
+     */
+    public void updateWeight(User user);
+
+    /**
+     * 删除user
+     */
+    public void deleteUser(User user);
 
     /**
      * 根据username 和 password获取
@@ -35,7 +45,7 @@ public interface UserDao {
     /**
      *分页获取
      **/
-    //public List<User> queryPage(User queryEntity , TailPage<User> page);
+    public List<User> queryPage(User queryEntity , TailPage<User> page);
 
     /**
      *创建新记录
@@ -62,4 +72,8 @@ public interface UserDao {
      **/
     public void deleteLogic(User entity);
 
+    /**
+     *查询全部
+     **/
+    public List<User> queryAll();
 }

@@ -1,122 +1,146 @@
 @charset "UTF-8";
-    *{
-        margin: 0;
-        font-family:微软雅黑;
-    }
-    #topd{
-        background-color: #333;
-        width: 100%;
-    }
-    .topa{
-        color: #b0b0b0;
-        text-decoration: none;
-        font-size: 12px;
-        line-height: 40px;
-        margin-left: 74%;
-    }
-    .topa:hover{
-        color: #FFFFFF;
-    }
-    #topa1{
-        color: #b0b0b0;
-        text-decoration: none;
-        font-size: 12px;
-        margin-left: 8%;
-    }
-    #topa1:hover{
-        color: #FFFFFF;
-    }
-    #middle{
-        width: 22%;
-        height: 80%;
-        margin-left: 30%;
-        margin-top: 6%;
-        box-shadow: darkgrey 10px 10px 30px 5px ;
-        border-radius: 5px;
-        padding: 30px 100px;
-    }
-    #middle_head{
-        font-weight: bold;
-        font-size: 50px;
-    }
-    #middle_form{
-        line-height: 40px;
-        margin: 20px 0;
-    }
-    .middle_text {
-        padding: 8px;
-        width: 90%;
-    }
-    .middle_radio{
-        margin-left: 10px;
-    }
-    #middle_radio_text{
-        margin-left: 28%;
-    }
-
-    #middle_form #sub{
-        margin-top: 40px;
-        background-color: #e54040;
-        border: none;
-        border-radius: 5px;
-        color: #fff;
-        padding: 10px;
-        font-size: 20px;
-        width: 100%;
-    }
-    #middle_form #sub:hover{
-        background-color: red;
-        cursor:pointer;
-    }
-    #middle_a{
-        color: #000;
-        text-decoration: none;
-        font-size: 20px;
-        margin-left: 42%;
-    }
-    #middle_a:hover{
-        color: #b0b0b0;
-    }
-
-    .middle_symbol{
-        color: red;
-    }
-
-input[type="text"]{
-    box-sizing: border-box;
-    border-radius:4px;
-    height: 40px;
-    line-height: 40px;
-    border:1px solid #c8cccf;
-    color:#6a6f77;
-    outline:0;
-    padding:0 8px;
-    text-decoration:none;
-    width:100%;
+* {
+    margin: 0;
+    font-family: 微软雅黑;
 }
 
-input[type="password"]{
-    box-sizing: border-box;
-    border-radius:4px;
-    height: 40px;
-    line-height: 40px;
-    border:1px solid #c8cccf;
-    color:#6a6f77;
-    outline:0;
-    padding:0 8px;
-    text-decoration:none;
-    width:100%;
+#topd {
+    background-color: #333;
+    width: 100%;
 }
 
-input[type="date"]{
+.topa {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 12px;
+    line-height: 40px;
+    margin-left: 66%;
+}
+
+.topa:hover {
+    color: #FFFFFF;
+}
+
+#topa1 {
+    color: #b0b0b0;
+    text-decoration: none;
+    font-size: 12px;
+    margin-left: 8%;
+}
+
+#topa1:hover {
+    color: #FFFFFF;
+}
+
+#middle {
+    width: 30%;
+    margin: 6% 0 6% 28%;
+    box-shadow: darkgrey 10px 10px 30px 5px;
+    border-radius: 5px;
+    padding: 30px 6%;
+}
+
+#middle_head {
+    font-weight: bold;
+    font-size: 50px;
+}
+
+#middle_form {
+    line-height: 40px;
+    margin: 20px 0;
+}
+
+.middle_text {
+    padding: 8px;
+    width: 100%;
+}
+
+.middle_radio {
+    margin-left: 10px;
+}
+
+#middle_radio_text {
+    margin-left: 28%;
+}
+
+#middle_form #sub {
+    margin-top: 20px;
+    background-color: #e54040;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    padding: 10px;
+    font-size: 20px;
+    width: 100%;
+    outline: 0;
+}
+
+#middle_form #sub:hover {
+    background-color: red;
+    cursor: pointer;
+}
+
+#middle_a {
+    color: #000;
+    text-decoration: none;
+    font-size: 20px;
+    margin-left: 44%;
+}
+
+#middle_a:hover {
+    color: #b0b0b0;
+}
+
+.middle_symbol {
+    color: red;
+}
+
+.msg {
+    margin-left: 20px;
+    color: red;
+    font-size: 16px;
+}
+
+#msg {
+    color: red;
+    height: 20px;
+    text-align: center;
+}
+
+input[type="text"] {
     box-sizing: border-box;
-    border-radius:4px;
+    border-radius: 4px;
     height: 40px;
     line-height: 40px;
-    border:1px solid #c8cccf;
-    color:#6a6f77;
-    outline:0;
-    padding:0 8px;
-    text-decoration:none;
-    width:100%;
+    border: 1px solid #c8cccf;
+    color: #6a6f77;
+    outline: 0;
+    padding: 0 8px;
+    text-decoration: none;
+}
+
+input[type="password"] {
+    box-sizing: border-box;
+    border-radius: 4px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #c8cccf;
+    color: #6a6f77;
+    outline: 0;
+    padding: 0 8px;
+    text-decoration: none;
+    width: 100%;
+}
+
+input[type="date"] {
+    box-sizing: border-box;
+    border-radius: 4px;
+    height: 40px;
+    line-height: 40px;
+    border: 1px solid #c8cccf;
+    color: #6a6f77;
+    outline: 0;
+    padding: 0 8px;
+    text-decoration: none;
+    width: 100%;
 }

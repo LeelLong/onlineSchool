@@ -7,6 +7,7 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import service.UserService;
 import service.UserServiceImpl;
+import util.EncryptUtil;
 
 import javax.annotation.Resource;
 import java.util.Calendar;
@@ -35,11 +36,11 @@ public class UserTest {
     }
 
     @Test
-    public void createSelectivity(){
+    public void registerUser(){
         User admin = new User("lee","admin","123",true,
                 "123456789",new GregorianCalendar(2000, Calendar.FEBRUARY, 11).getTime(),
                 "123789456");
-        userService.createSelectivity(admin);
+        userService.registerUser(admin);
     }
 
     @Test
@@ -50,6 +51,7 @@ public class UserTest {
             System.out.println(u);
             System.out.println(u.getUsername());
             System.out.println(u.getId());
+            System.out.println(u.getWeight());
         }
     };
 
@@ -71,4 +73,36 @@ public class UserTest {
             System.out.println(u.getWeight());
         }
     }
+
+    @Test
+    public void login(){
+        userService.loginAdmin("admin","123");
+    }
+
+    @Test
+    public void login2(){
+        User user = userService.loginUser("wangyang","qwe123");
+        System.out.println(user.getWeight());
+    }
+
+    @Test
+    public void test(){
+        Integer i = 1;
+        String m = "";
+        try {
+            m = EncryptUtil.encryptAes(i.toString());
+            System.out.println(m);
+        }
+        catch(Exception e){
+            return;
+        }
+        try {
+            m = EncryptUtil.decryptAes(m);
+            System.out.println(m);
+        }
+        catch(Exception e){
+            return;
+        }
+    }
+
 }

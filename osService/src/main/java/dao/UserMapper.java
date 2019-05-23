@@ -1,7 +1,7 @@
 package dao;
 
+import entity.Price;
 import entity.User;
-import page.TailPage;
 
 import java.util.List;
 
@@ -10,7 +10,7 @@ public interface UserMapper{
     /**
      * 根据id获取
      **/
-    public User getById(Long id);
+    public User getById(Integer id);
 
     /**
      * 根据username或realname查询
@@ -45,12 +45,12 @@ public interface UserMapper{
     /**
      *分页获取
      **/
-    public List<User> queryPage(User queryEntity , TailPage<User> page);
+//    public List<User> queryPage(User queryEntity , TailPage<User> page);
 
     /**
      *创建新记录
      **/
-    public void createSelectivity(User entity);
+    public int createSelectivity(User entity);
 
     /**
      *根据id更新
@@ -76,4 +76,20 @@ public interface UserMapper{
      *查询全部
      **/
     public List<User> queryAll();
+
+    /**
+     *根据条件查询用户
+     **/
+    public Integer queryUserExist(User user);
+
+    /**
+     *根据用户名查询用户
+     **/
+    public User queryByUsername(String username);
+
+    public void reduceWeight(Price price);
+
+    public void setPassword(User user);
+
+    public void addWeight(User user);
 }

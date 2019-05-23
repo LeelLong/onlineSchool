@@ -15,11 +15,11 @@
     <div id="middle_head">
         管理员登录
     </div>
-    <form id="middle_form" method="post" action="${pageContext.request.contextPath }/login">
-        账号<span class="middle_symbol">*</span><br>
+    <form id="middle_form">
+        账号<br>
         <input type="text" name="username" placeholder="请您输入账号"
                class="middle_text" id="username"><br>
-        密码<span class="middle_symbol">*</span><br>
+        密码<br>
         <input type="password" name="password" placeholder="请您输入密码"
                class="middle_text" id="password"><br>
         <div id="msg"></div>
@@ -28,6 +28,7 @@
 </div>
 </body>
 <script src="webjars/jquery/3.4.0/jquery.js"></script>
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script type="text/javascript">
     function login() {
         var username = $("#username");
@@ -36,31 +37,32 @@
         var usernameVal = username.val();
         var passwordVal = password.val();
         msg.text("");
-        if(usernameVal==null||usernameVal===undefined||usernameVal===""){
+        if (usernameVal == null || usernameVal === undefined || usernameVal === "") {
             msg.text("账号不能为空");
             username.focus();
             return false;
         }
-        if(passwordVal==null||passwordVal===undefined||passwordVal===""){
+        if (passwordVal == null || passwordVal === undefined || passwordVal === "") {
             msg.text("密码不能为空");
             password.focus();
             return false;
         }
         //测试post
         <%--$.post("${pageContext.request.contextPath }/login",--%>
-            <%--{'username' : username, 'password' : password} ,function (data) {--%>
-                <%--alert("提交成功");--%>
+        <%--{'username' : usernameVal, 'password' : passwordVal} ,function (data) {--%>
+        <%--alert("提交成功");--%>
         <%--},"json");--%>
         $.ajax(
             {
                 url: "${pageContext.request.contextPath }/login",
                 type: "POST",
-                data: {'username' : usernameVal, 'password' : passwordVal},
+                data: {'username': usernameVal, 'password': passwordVal},
                 dataType: "json",
                 success: function (data) {
-                    if(data.msg === ""){
+                    if (data.msg === "") {
+                        $.cookie('loginAdmin', 'success', {path: '/'});
                         window.location.href = "${pageContext.request.contextPath }/loginSuccess";
-                    }else {
+                    } else {
                         msg.text(data.msg);
                         username.focus();
                     }

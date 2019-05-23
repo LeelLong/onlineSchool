@@ -17,7 +17,8 @@
 <div id="left">
     <a href="${pageContext.request.contextPath }/loginSuccess" class="left_top" id="left_selected">导航列表</a>
     <a href="${pageContext.request.contextPath }/users" class="left_middle">用户管理</a>
-    <a href="${pageContext.request.contextPath }/courses" class="left_buttom">课程管理</a>
+    <a href="${pageContext.request.contextPath }/courses" class="left_middle">课程管理</a>
+    <a href="${pageContext.request.contextPath }/add" class="left_buttom">添加课程</a>
 </div>
 <div id="right">
     <div id="welcome">
@@ -27,16 +28,13 @@
 
 </body>
 <script src="webjars/jquery/3.4.0/jquery.js"></script>
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script type="text/javascript">
-    $("#user").mouseover(function () {
-            $("#user").style.backgroundColor="#fff";
-        }
-    )
     function logout() {
-        if (window.confirm('是否退出?')) {
-            window.location.href = '${pageContext.request.contextPath }/login.jsp';
-        } else {
-            return false;
+        var logout = confirm("您真的确定要退出吗？\n\n请确认！")
+        if (logout) {
+            $.cookie('loginAdmin', '', {path: '/'});
+            window.location.href = "${pageContext.request.contextPath }/logout";
         }
     }
 </script>

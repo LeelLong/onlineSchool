@@ -1,5 +1,7 @@
 package entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class User {
@@ -16,6 +18,21 @@ public class User {
         this.telephone = telephone;
         this.birthday = birthday;
         this.qq = qq;
+    }
+
+    public User(Integer id, String realname, String username, String password, Boolean gender, String telephone, Date birthday, String qq, Integer weight, Date update_time, String update_user, Boolean del) {
+        this.id = id;
+        this.realname = realname;
+        this.username = username;
+        this.password = password;
+        this.gender = gender;
+        this.telephone = telephone;
+        this.birthday = birthday;
+        this.qq = qq;
+        this.weight = weight;
+        this.update_time = update_time;
+        this.update_user = update_user;
+        this.del = del;
     }
 
     /**
@@ -51,6 +68,7 @@ public class User {
     /**
      * 生日日期
      */
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date birthday;
 
     /**
@@ -59,7 +77,7 @@ public class User {
     private String qq;
 
     /**
-     * 权重
+     * 钱
      */
     private Integer weight;
 
@@ -268,5 +286,23 @@ public class User {
      */
     public void setDel(Boolean del) {
         this.del = del;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", realname='" + realname + '\'' +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", gender=" + gender +
+                ", telephone='" + telephone + '\'' +
+                ", birthday=" + birthday +
+                ", qq='" + qq + '\'' +
+                ", weight=" + weight +
+                ", update_time=" + update_time +
+                ", update_user='" + update_user + '\'' +
+                ", del=" + del +
+                '}';
     }
 }

@@ -30,33 +30,37 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
         <!-- 配置注解驱动，相当于配置最新的处理器映射器和处理器适配器，对json数据响应提供支持 -->
         <mvc:annotation-driven/>
 
-        <!--&lt;!&ndash; 配置ViewResolver 。可用多个ViewResolver 。使用order属性排序。   InternalResourceViewResolver 放在最后&ndash;&gt;-->
-        <!--<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">-->
-                <!--<property name="order" value="1"></property>-->
-                <!--<property name="mediaTypes">-->
-                        <!--<map>-->
-                                <!--&lt;!&ndash; 告诉视图解析器，返回的类型为json格式 &ndash;&gt;-->
-                                <!--<entry key="json" value="application/json" />-->
-                                <!--<entry key="xml" value="application/xml" />-->
-                                <!--<entry key="htm" value="text/htm" />-->
-                        <!--</map>-->
-                <!--</property>-->
-                <!--<property name="defaultViews">-->
-                        <!--<list>-->
-                                <!--&lt;!&ndash; ModelAndView里的数据变成JSON &ndash;&gt;-->
-                                <!--<bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView" />-->
-                        <!--</list>-->
-                <!--</property>-->
-                <!--<property name="ignoreAcceptHeader" value="true"></property>-->
-        <!--</bean>-->
+        <!--<mvc:resources location="/css/" mapping="/css/**"/>-->
+        <!--<mvc:resources location="/images/" mapping="/images/**"/>-->
 
-        <!--&lt;!&ndash; 启动SpringMVC的注解功能，完成请求和注解POJO的映射 &ndash;&gt;-->
-        <!--<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">-->
-                <!--<property name="messageConverters">-->
-                        <!--<list>-->
-                                <!--<ref bean="mappingJacksonHttpMessageConverter" /> &lt;!&ndash; JSON转换器 &ndash;&gt;-->
-                        <!--</list>-->
-                <!--</property>-->
-        <!--</bean>-->
+        <!--在springMVC-servlet.xml中配置<mvc:default-servlet-handler />后，
+        会在Spring MVC上下文中定义一个org.springframework.web.servlet.resource.DefaultServletHttpRequestHandler，
+        它会像一个检查员，对进入DispatcherServlet的URL进行筛查，
+        如果发现是静态资源的请求，就将该请求转由Web应用服务器默认的Servlet处理，
+        如果不是静态资源的请求，才由DispatcherServlet继续处理。-->
+        <mvc:default-servlet-handler />
+
+        <!-- 拦截器 -->
+        <mvc:interceptors>
+                <mvc:interceptor>
+                        <mvc:mapping path="/**" />
+                        <mvc:exclude-mapping path="/judgeQQ"/>
+                        <mvc:exclude-mapping path="/judgeTelephone"/>
+                        <mvc:exclude-mapping path="/judgeUsername"/>
+                        <mvc:exclude-mapping path="/login"/>
+                        <mvc:exclude-mapping path="/queryCourse"/>
+                        <mvc:exclude-mapping path="/courseType/*"/>
+                        <mvc:exclude-mapping path="/course/*"/>
+                        <bean class="interceptor.LoginInterceptor" />
+                </mvc:interceptor>
+        </mvc:interceptors>
+
+        <!-- 事务管理 -->
+        <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+            <property name="dataSource" ref="dataSource" />
+        </bean>
+
+        <tx:annotation-driven transaction-manager="txManager" />
+
 
 </beans>

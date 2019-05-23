@@ -6,8 +6,6 @@ import java.util.List;
 
 public interface UserService {
 
-    public void createSelectivity(User user);
-
     /**
      * 查询所有用户
      */
@@ -31,5 +29,39 @@ public interface UserService {
     /**
      * 判断是否管理员登录
      */
-    public boolean login(String username,String password);
+    public User loginAdmin(String username, String password);
+
+    /**
+     * 判断是否用户登录
+     */
+    public User loginUser(String username, String password);
+
+    /**
+     * 根据用户名查询用户是否存在
+     */
+    public boolean existUsername(String username);
+
+    /**
+     * 根据电话查询用户是否存在
+     */
+    public boolean existTelephone(String telephone);
+
+    /**
+     * 根据qq查询用户是否存在
+     */
+    public boolean existQQ(String qq);
+
+    /**
+     * 注册用户,成功则返回该用户全部属性
+     */
+    public User registerUser(User user);
+
+    /**
+     * 根据id获得用户
+     */
+    public User getUserById(Integer id);
+
+    public Boolean judgePassword(Integer id, String userPassword, String password, String newPassword);
+
+    public void addWeight(Integer id, String weight);
 }

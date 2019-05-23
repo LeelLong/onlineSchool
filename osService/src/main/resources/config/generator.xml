@@ -30,7 +30,7 @@
             <property name="enableSubPackages" value="true"/>
         </javaClientGenerator>
         <!-- tableName 数据库中表的名字    domainObjectName  生成的实体类名字以及加上Dao和Mapper组成的dao和mapper文件的名字 -->
-        <table tableName="t_user" domainObjectName="User"
+        <table tableName="t_course" domainObjectName="Course"
                enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">

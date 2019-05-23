@@ -5,7 +5,7 @@
 
     <!-- 将查询到的复杂数据映射到一个结果集当中,常用于多表查询，自动映射开启时会自动映射 -->
     <resultMap id="UserResultMap" type="user">
-        <result column="id" property="id" jdbcType="INTEGER" javaType="int" />
+        <result column="id" property="id" jdbcType="INTEGER" javaType="int"/>
         <result column="realname" property="realname" jdbcType="VARCHAR" javaType="String"/>
         <result column="username" property="username" jdbcType="VARCHAR" javaType="String"/>
         <result column="password" property="password" jdbcType="VARCHAR" javaType="String"/>
@@ -43,6 +43,34 @@
         </if>
     </select>
 
+    <select id="queryByUsername" parameterType="java.lang.String" resultType="user">
+        SELECT
+        <include refid="UserColumns"/>
+        FROM
+        t_user
+        WHERE
+        del = 0
+        AND username = #{username}
+    </select>
+
+    <select id="queryUserExist" resultType="java.lang.Integer" parameterType="user">
+        SELECT
+        id
+        FROM
+        t_user
+        WHERE
+        del = 0
+        <if test="username != null and username != ''">
+            AND username = #{username}
+        </if>
+        <if test="telephone != null and telephone != ''">
+            AND telephone = #{telephone}
+        </if>
+        <if test="qq != null and qq != ''">
+            AND qq = #{qq}
+        </if>
+    </select>
+
     <select id="queryAll" resultType="user">
         SELECT
         <include refid="UserColumns"/>
@@ -75,13 +103,27 @@
         INSERT INTO
         t_user
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            realname,
-            username,
-            password,
-            gender,
-            telephone,
-            birthday,
-            qq,
+            <if test="realname != null ">
+                realname,
+            </if>
+            <if test="username != null ">
+                username,
+            </if>
+            <if test="password != null ">
+                password,
+            </if>
+            <if test="gender != null ">
+                gender,
+            </if>
+            <if test="telephone != null ">
+                telephone,
+            </if>
+            <if test="birthday != null ">
+                birthday,
+            </if>
+            <if test="qq != null ">
+                qq,
+            </if>
         </trim>
         VALUES
         <!-- trim元素的主要功能是可以在自己包含的内容前加上某些前缀，也可以在其后加上某些后缀，
@@ -146,7 +188,7 @@
         LIMIT #{param2.startIndex} , #{param2.pageSize}
     </select>
 
-    <select id="getById" parameterType="java.lang.Long" resultType="user">
+    <select id="getById" parameterType="java.lang.Integer" resultType="user">
         SELECT
         <include refid="UserColumns"/>
         FROM
@@ -162,6 +204,7 @@
         t_user
         WHERE username = #{username}
         AND password = #{password}
+        AND del = 0
     </select>
 
 
@@ -217,5 +260,26 @@
     t_user
     WHERE id = #{id}
   </delete>
+
+    <update id="reduceWeight" parameterType="price">
+        UPDATE
+        t_user
+        SET weight = weight - #{price}
+        WHERE username = #{username}
+    </update>
+
+    <update id="addWeight" parameterType="user">
+        UPDATE
+        t_user
+        SET weight = weight + #{weight}
+        WHERE id = #{id}
+    </update>
+
+    <update id="setPassword" parameterType="user">
+        UPDATE
+        t_user
+        SET password = #{password}
+        WHERE id = #{id}
+    </update>
 
 </mapper>

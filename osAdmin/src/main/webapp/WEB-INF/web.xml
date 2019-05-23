@@ -21,6 +21,15 @@
         <servlet-name>default</servlet-name>
         <url-pattern>*.js</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.jpg</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>default</servlet-name>
+        <url-pattern>*.png</url-pattern>
+    </servlet-mapping>
+
     <!-- springmvc核心前端控制器 -->
     <servlet>
         <servlet-name>dispatch</servlet-name>
@@ -50,12 +59,12 @@
     <!-- 404错误拦截 -->
     <error-page>
         <error-code>404</error-code>
-        <location>/error/404.html</location>
+        <location>/error/404.jsp</location>
     </error-page>
     <!-- 500错误拦截 -->
     <error-page>
         <error-code>500</error-code>
-        <location>/error/500.html</location>
+        <location>/error/500.jsp</location>
     </error-page>
 
     <!--&lt;!&ndash; 加载log4j &ndash;&gt;-->

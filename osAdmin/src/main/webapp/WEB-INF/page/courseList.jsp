@@ -6,7 +6,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title>查询用户列表</title>
+    <title>查询课程列表</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath }/css/admin.css"/>
 </head>
 <body>
@@ -17,118 +17,99 @@
 </div>
 <div id="left">
     <a href="${pageContext.request.contextPath }/loginSuccess" class="left_top">导航列表</a>
-    <a href="${pageContext.request.contextPath }/users" class="left_middle" id="left_selected">用户管理</a>
-    <a href="${pageContext.request.contextPath }/courses" class="left_buttom">课程管理</a>
+    <a href="${pageContext.request.contextPath }/users" class="left_middle">用户管理</a>
+    <a href="${pageContext.request.contextPath }/courses" class="left_middle" id="left_selected">课程管理</a>
+    <a href="${pageContext.request.contextPath }/add" class="left_buttom">添加课程</a>
 </div>
 <div id="right">
-    <form action="${pageContext.request.contextPath }/queryUsers" method="post" name="queryForm">
+    <form action="${pageContext.request.contextPath }/queryCourses" method="post" name="queryForm">
         <span class="right_text">查询条件：</span>
         <table id="query_table">
             <tr>
-                <td>用户名:<input type="text" name="username"></td>
-                <td>用户姓名:<input type="text" name="realname"></td>
+                <td>课程名字:<input type="text" name="cname" class="query_text" id="cname"></td>
+                <td>课程价格:<input type="text" name="minPrice" class="query_price" id="minPrice">
+                    至<input type="text" name="maxPrice" class="query_price" id="maxPrice"></td>
                 <td><input type="submit" value="查询" id="query"/></td>
             </tr>
         </table>
     </form>
     <div id="right_bottom">
-        <span class="right_text">用户列表：</span>
+        <span class="right_text">课程列表：</span>
         <div id="table">
+            <c:if test="${empty courseList}">
+                <div id="tip">不好意思，查无此课程</div>
+            </c:if>
+            <c:if test="${not empty courseList}">
             <table>
                 <tr id="table_head">
-                    <td>用户名</td>
-                    <td>用户姓名</td>
-                    <td>用户性别</td>
-                    <td>用户生日</td>
-                    <td>用户电话</td>
-                    <td>用户QQ</td>
-                    <td>权重</td>
+                    <th>课程名</th>
+                    <th>课程类型</th>
+                    <th>课程价格</th>
+                    <th>课程描述</th>
+                    <th>课程学习人数</th>
+                    <th>权重</th>
+                    <th>修改</th>
                 </tr>
-                <c:forEach items="${userList }" var="user" varStatus="status">
-                    <c:if test="${status.index%2==0}">
-                        <tr class="table_body">
-                            <td>${user.username }</td>
-                            <td>${user.realname }</td>
+                <c:forEach items="${courseList }" var="course" varStatus="status">
+                    <tr class="table_body">
+                        <form action="${pageContext.request.contextPath }/queryCourseById" method="post"
+                              name="updateForm">
+                            <td>${course.cname}</td>
+                            <td>${course.ctype}</td>
+                            <td>${course.price}</td>
                             <td>
-                                <c:if test="${user.gender == true}">男</c:if>
-                                <c:if test="${user.gender == false}">女</c:if>
+                                <div id="brief">${course.brief }</div>
                             </td>
-                            <td>${user.telephone }</td>
+                            <td>${course.studycount }</td>
+                            <td>${course.weight}</td>
                             <td>
-                                <fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd"/>
+                                <input type="hidden" value="${course.id}" class="id" name="id"/>
+                                <input value="修改" type="submit">
                             </td>
-                            <td>${user.qq }</td>
-                            <td>
-                                <form action="${pageContext.request.contextPath }/updateWeight" method="post"
-                                      name="updateForm"
-                                      onsubmit="return beforeSubmitUpdate(this)">
-                                    <input type="text" value="${user.weight}"
-                                           placeholder="${user.weight}"
-                                           name="weight" class="weight">
-                                    <input type="hidden" value="${user.id}" class="id" name="id"/>
-                                    <input value="修改权重" type="submit" class="updateWeight">
-                                </form>
-                            </td>
-                            <td><a href="${pageContext.request.contextPath }/deleteUser/${user.id}"
-                                   class="del">删除</a>
-                            </td>
-                        </tr>
-                    </c:if>
-                    <c:if test="${status.index%2==1}">
-                        <tr class="table_body">
-                            <td>${user.username }</td>
-                            <td>${user.realname }</td>
-                            <td>
-                                <c:if test="${user.gender == true}">男</c:if>
-                                <c:if test="${user.gender == false}">女</c:if>
-                            </td>
-                            <td>${user.telephone }</td>
-                            <td>
-                                <fmt:formatDate value="${user.birthday}" pattern="yyyy-MM-dd"/>
-                            </td>
-                            <td>${user.qq }</td>
-                            <td>
-                                <form action="${pageContext.request.contextPath }/updateWeight" method="post"
-                                      name="updateForm"
-                                      onsubmit="return beforeSubmitUpdate(this)">
-                                    <input type="text" value="${user.weight}"
-                                           placeholder="${user.weight}"
-                                           name="weight" class="weight">
-                                    <input type="hidden" value="${user.id}" class="id" name="id"/>
-                                    <input value="修改权重" type="submit" class="updateWeight">
-                                </form>
-                            </td>
-                            <td><a href="${pageContext.request.contextPath }/deleteUser/${user.id}"
-                                   class="del">删除</a>
-                            </td>
-                        </tr>
-                    </c:if>
+                        </form>
+                        <td><a href="${pageContext.request.contextPath }/deleteCourse/${course.id}"
+                               class="del">删除</a>
+                        </td>
+                    </tr>
                 </c:forEach>
+                </c:if>
             </table>
         </div>
     </div>
 </div>
-
+<script src="webjars/jquery/3.4.0/jquery.js"></script>
+<script src="//cdn.bootcss.com/jquery-cookie/1.4.1/jquery.cookie.min.js"></script>
 <script type="text/javascript">
-    function beforeSubmitUpdate(form) {
-        if (form.weight.value === '') {
-            alert('权重不能为空！');
-            form.weight.focus();
-            return false;
+    function logout() {
+        var logout = confirm("您真的确定要退出吗？\n\n请确认！")
+        if (logout){
+            $.cookie('loginAdmin', '', {path: '/'});
+            window.location.href = "${pageContext.request.contextPath }/logout";
         }
     }
-
     window.onload = function () {
         var i;
         var query = document.getElementById("query");
         query.onclick = function () {
-            if (document.queryForm.username.value === "" && document.queryForm.realname.value === "") {
+            if (document.queryForm.cname.value === "" && document.queryForm.minPrice.value === ""
+                && document.queryForm.maxPrice.value === "") {
                 alert("查询条件不能为空!");
-                document.queryForm.username.focus();
+                document.queryForm.cname.focus();
+                return false;
+            }
+            if(document.queryForm.minPrice.value !== "" && !(/^([1-9][0-9]*)+(.[0-9]{1,2})?$/.test($("#minPrice").val()))){
+                alert("请保证课程最小价格为非零开头的最多带两位小数的数字");
+                // document.queryForm.minPrice.text("");
+                document.queryForm.minPrice.focus();
+                return false;
+            }
+            if(document.queryForm.maxPrice.value !== "" && !(/^([1-9][0-9]*)+(.[0-9]{1,2})?$/.test($("#maxPrice").val()))){
+                alert("请保证课程最大价格为非零开头的最多带两位小数的数字");
+                // document.queryForm.maxPrice.text("");
+                document.queryForm.maxPrice.focus();
                 return false;
             }
         }
-
         var delList = document.getElementsByClassName("del");
         for (i = 0; i < delList.length; i++)
             delList[i].onclick = function () {

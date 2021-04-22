@@ -20,7 +20,7 @@
         <!-- spring版本号 -->
         <spring.version>4.3.0.RELEASE</spring.version>
         <!-- mybatis版本号 -->
-        <mybatis.version>3.3.0</mybatis.version>
+        <mybatis.version>3.5.6</mybatis.version>
     </properties>
 
     <!-- 父项目别忘了Management。
